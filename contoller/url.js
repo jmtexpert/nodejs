@@ -10,8 +10,9 @@ async function UrlSubmit(req, res) {
         const shortId = shortid()
 
         const newUrl = await URLschema.create({ url,shortId });
-
-        return res.status(201).json(newUrl);
+        console.log(newUrl);
+        
+        return res.redirect('/');
     } catch (error) {
         console.error("Error creating URL:", error);
         return res.status(500).send("Internal Server Error");
@@ -48,6 +49,20 @@ async function GotoLink(req, res) {
     }
 }
 
+
+async function DeleteUrl(req,res){
+    const id = req.params.id
+    if (!id) {
+        res.send('Insert ID')
+    }
+    const data = await URLschema.findByIdAndDelete({_id:id})
+    if (!data) {
+         res.send('Invalid Id')
+    }
+    res.redirect('/')
+
+}
+
 async function Analyticsdata(req, res) {
     try {
         const shortId = req.params.id;
@@ -70,5 +85,6 @@ async function Analyticsdata(req, res) {
 module.exports= {
     UrlSubmit,
     GotoLink,
-    Analyticsdata
+    Analyticsdata,
+    DeleteUrl
 };
