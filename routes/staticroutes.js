@@ -1,5 +1,5 @@
 const express = require('express');
-const { Home } = require('../contoller/staticcontroller');
+const { Home,Signup ,Login} = require('../contoller/staticcontroller');
 const staticroute = express.Router()
 
 // staticroute.get('/',(req,res)=>{
@@ -8,6 +8,8 @@ const staticroute = express.Router()
 // })
 
 staticroute.get('/',Home)
+staticroute.get('/signup',Signup)
+staticroute.get('/login',Login)
 
 module.exports = {
     staticroute
