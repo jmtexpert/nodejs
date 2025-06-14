@@ -1,15 +1,15 @@
 const { getsession } = require("../services/auth");
 
 function Restrictlogin(req, res, next) {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     
-    const uuid = req.cookies?.uuid; // Correct usage
+    const token = req.cookies?.uuid; // Correct usage
 
-    if (!uuid) {
+    if (!token) {
         return res.redirect('/login');
     }
 
-    const user = getsession(uuid);
+    const user = getsession(token);
 
     if (!user) {
         return res.redirect('/login');
@@ -18,5 +18,25 @@ function Restrictlogin(req, res, next) {
     req.user = user;
     next();
 }
+
+function CheckAuth(req, res, next) {
+    // console.log(req.cookies);
+    
+    const token = req.cookies?.uuid; // Correct usage
+
+    if (!token) {
+        return res.redirect('/login');
+    }
+
+    const user = getsession(token);
+
+    if (!user) {
+        return res.redirect('/login');
+    }
+
+    req.user = user;
+    next();
+}
+
 
 module.exports = Restrictlogin;

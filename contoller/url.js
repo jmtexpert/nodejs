@@ -2,6 +2,9 @@ const URLschema = require("../model/url")
 const shortid = require('shortid');
 async function UrlSubmit(req, res) {
     try {
+        const userId = req.user.id;
+        
+        
         const { url } = req.body;
         
         if (!url) {
@@ -9,7 +12,7 @@ async function UrlSubmit(req, res) {
         }
         const shortId = shortid()
 
-        const newUrl = await URLschema.create({ url,shortId });
+        const newUrl = await URLschema.create({ url,shortId ,userId: userId });
         console.log(newUrl);
         
         return res.redirect('/');

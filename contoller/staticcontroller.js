@@ -2,10 +2,20 @@ const URLschema = require("../model/url")
 
 
 async function Home(req, res) {
-    const data =await  URLschema.find({})
-    return res.render('home',{
-        data
-    });
+     const userId = req.user.id;
+     const userrole = req.user.role;
+     if(userrole == 'ADMIN'){
+      
+   const data =await  URLschema.find({})
+         return res.render('home',{
+             data
+         });
+     }else{
+           const data =await  URLschema.find({userId:userId})
+         return res.render('home',{
+             data
+         });
+     }
 }
 async function Signup(req, res) {
     // const data =await  URLschema.find({})

@@ -26,9 +26,9 @@ async function Loginhandler(req,res){
        res.send('error')
 }
 else{
-    const sessionid = uuidv4();
-    setsession(sessionid,data);
-    res.cookie('uuid' ,sessionid)
+    // const sessionid = uuidv4();
+    const token = setsession(data);
+    res.cookie('uuid' ,token)
        return res.redirect('/')
    }
 }
